@@ -3,6 +3,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
+#TODO: Add methods that simulate human behavior. I.E Scrolling, Refresh random intervals, etc.
+
 def buy_product(driver, urls):
     """
     Monitors each URL in the provided list of product URLs using separate tabs.
