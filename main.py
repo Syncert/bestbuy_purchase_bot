@@ -43,6 +43,7 @@ def main():
         sign_in(driver, BBY_EMAIL, BBY_PASS)
 
         # Step 4: Attempt to buy products
+        #TODO: Why isn't the second tab opening??? Verify the buynow functionality
         buy_product(driver, PRODUCT_URLS)
     except Exception as e:
         print(f"An error occurred: {e}")
