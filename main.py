@@ -1,4 +1,21 @@
-from setup_env import setup_environment
+import subprocess
+import sys
+
+# Function to dynamically install packages
+def ensure_package_installed(package_name):
+    try:
+        __import__(package_name)
+    except ImportError:
+        print(f"Package {package_name} not found. Installing...")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", package_name])
+        print(f"{package_name} installed successfully.")
+        # Retry import after installation
+        __import__(package_name)
+
+# Ensure undetected_chromedriver is installed
+ensure_package_installed("undetected_chromedriver")
+
+
 from driver_manager import DriverManager
 from bby_signin import sign_in
 from bby_product_buynow import buy_product
@@ -16,20 +33,16 @@ def main():
     email_pass_manager = SetEmailPass()
     BBY_EMAIL, BBY_PASS = email_pass_manager.check_and_set()
 
-    # Step 2: Run setup_env
-    print("Running environment setup...")
-    setup_environment()
-
-    # Step 3: Initialize Driver
+    # Step 2: Initialize Driver
     manager = DriverManager()
     driver = manager.create_driver()
 
     try:
-        # Step 4: Sign In
+        # Step 3: Sign In
         print("Signing in...")
         sign_in(driver, BBY_EMAIL, BBY_PASS)
 
-        # Step 5: Attempt to buy products
+        # Step 4: Attempt to buy products
         buy_product(driver, PRODUCT_URLS)
     except Exception as e:
         print(f"An error occurred: {e}")

@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
+import undetected_chromedriver as uc
 import os
 
 class DriverManager:
@@ -8,19 +9,8 @@ class DriverManager:
         self.driver = None
 
     def create_driver(self):
-        # Create WebDriver with options
-        chrome_options = Options()
-        chrome_options.add_argument("--no-sandbox")
-        chrome_options.add_argument("--disable-dev-shm-usage")
-        # Add headless mode for non-debugging
-        # chrome_options.add_argument("--headless")
-
-        # Locate the ChromeDriver
-        chromedriver_path = self.find_chromedriver()
-
-        # Initialize the WebDriver
-        service = Service(chromedriver_path)
-        self.driver = webdriver.Chrome(service=service, options=chrome_options)
+        # Initialize the WebDriver with undetected_chromedriver
+        self.driver = uc.Chrome() #headless=True
         return self.driver
 
     @staticmethod
