@@ -67,38 +67,12 @@ def sign_in(driver, email, password):
     # Add a short delay after typing the full password
     time.sleep(1)
 
-    ###THIS SECTION NEEDS RETRIES SINCE THE BOT FLAGGING POPS UP AN ERROR MESSAGE###
-
-    timeout = 20 #setting the timeout amount
-    start_time = time.time() #recording start time
-    
-    while time.time() - start_time < timeout:
-        try:
-            print("Clicking 'Continue' button...")
-            continue_button = WebDriverWait(driver, 20).until(
-            EC.element_to_be_clickable((By.XPATH, "//button[contains(@class, 'cia-form__controls__submit') and text()='Continue']")))
-            continue_button.click()
-
-            # Check for "Something went wrong" message
-            time.sleep(3)
-            error_message = driver.find_element(By.XPATH, "//div[contains(text(), 'something went wrong')]")
-            print("Detected error: 'Something went wrong'. Retrying...")
-        except NoSuchElementException:
-            print("'Continue' button clicked successfully!")
-            break
-        except Exception as e:
-            print(f"Error while clicking 'Continue' button: {e}")
-
-    # # Locate and click the "Continue" button
-    # print("Locating the 'Continue' button...")
-    # continue_button = WebDriverWait(driver, 20).until(
-    #     EC.element_to_be_clickable((By.XPATH, "//button[contains(@class, 'cia-form__controls__submit') and text()='Continue']"))
-    # )
-    # continue_button.click()
-
-
-
-
+    # Locate and click the "Continue" button
+    print("Locating the 'Continue' button...")
+    continue_button = WebDriverWait(driver, 20).until(
+        EC.element_to_be_clickable((By.XPATH, "//button[contains(@class, 'cia-form__controls__submit') and text()='Continue']"))
+    )
+    continue_button.click()
 
     # Verify sign-in
     print("Verifying sign-in...")
