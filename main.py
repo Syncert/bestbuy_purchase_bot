@@ -17,8 +17,7 @@ ensure_package_installed("undetected_chromedriver")
 
 
 from driver_manager import DriverManager
-from bby_signin import sign_in
-from bby_product_buynow import buy_product
+from bby_actions import sign_in, monitorAndBuy
 from setEmailPass import SetEmailPass
 
 # List of product URLs
@@ -28,7 +27,7 @@ PRODUCT_URLS = [
 ]
 
 def main():
-    # Step 1: Set Email and Password
+    # # Step 1: Set Email and Password
     print("Checking and setting environment variables for email and password...")
     email_pass_manager = SetEmailPass()
     BBY_EMAIL, BBY_PASS = email_pass_manager.check_and_set()
@@ -43,8 +42,8 @@ def main():
         sign_in(driver, BBY_EMAIL, BBY_PASS)
 
         # Step 4: Attempt to buy products
-        #TODO: Why isn't the second tab opening??? Verify the buynow functionality
-        buy_product(driver, PRODUCT_URLS)
+        #TODO: Verify the buynow functionality
+        monitorAndBuy(driver, PRODUCT_URLS)
     except Exception as e:
         print(f"An error occurred: {e}")
     finally:

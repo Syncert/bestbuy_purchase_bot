@@ -9,8 +9,21 @@ class DriverManager:
         self.driver = None
 
     def create_driver(self):
+        #configure options
+        chrome_options = uc.ChromeOptions()
+        chrome_options.add_argument("--disable notifications") # Disable Popups
+
+        #add location data from user profile to bypass popup, can find by entering chrome://version/ in chrome
+        #TODO: Find out why the pop-up opens at beginning of driver initialization
+        chrome_options.add_argument(r"--user-data-dir=\
+                                    C:\Users\synce\AppData\Local\Google\Chrome\User Data\Default") #Add your dir here
+        chrome_options.add_experimental_option("prefs", {
+            "profile.default_content_setting_values.geolocation": 2,  # Block location requests
+        })
+        chrome_options.add_argument("--log-level=3")  # Suppress minor logs: 0=ALL, 1=INFO, 2=WARNING, 3=ERROR
+        # chrome_options.add_argument("--silent")  # Suppress most logs
         # Initialize the WebDriver with undetected_chromedriver
-        self.driver = uc.Chrome() #headless=True
+        self.driver = uc.Chrome(options=chrome_options) #headless=True
         return self.driver
 
     @staticmethod
