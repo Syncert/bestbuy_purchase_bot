@@ -111,15 +111,11 @@ def monitorAndBuy(driver, urls):
             driver.get(url)
             time.sleep(2)  # Wait for the page to load
         else:
-            # Open a new tab for subsequent URLs
-            # driver.execute_script("window.open('');")
-                # Opens a new tab and switches to new tab
+            # Open a new tab
             driver.switch_to.new_window('tab')
             time.sleep(2)  # Wait for the new tab
-            driver.get(url)
-            # driver.switch_to.window(driver.window_handles[-1])
+            driver.get(url) #navigate to next link
         print(f"Opened tab {index + 1} for: {url}")
-        print(f"{index + 1} of {len(urls)}")
 
     # Monitor all tabs
     while True:
@@ -154,9 +150,7 @@ def monitorAndBuy(driver, urls):
 
                 # Switch to another open tab, if available
                 if driver.window_handles:
-                    #simulate human behavior
-                    print("Mimicking human behavior...then switching tab")
-                    mimic_human_behavior(driver)
+
                     driver.switch_to.window(driver.window_handles[0])
                 else:
                     print("No more tabs open.")
@@ -168,4 +162,9 @@ def monitorAndBuy(driver, urls):
                 print(f"Tab {index + 1} error: {e}")
                 print(f"Refreshing tab {index + 1}...")
                 driver.refresh()
+                
+                #simulate human behavior
+                print("Mimicking human behavior...then switching tab")
+                mimic_human_behavior(driver)
+
                 time.sleep(30)  # Wait 30 seconds before retrying

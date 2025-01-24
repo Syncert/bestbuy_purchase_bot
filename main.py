@@ -27,7 +27,7 @@ PRODUCT_URLS = [
 ]
 
 def main():
-    # # Step 1: Set Email and Password
+    #Step 1: Set Email and Password
     print("Checking and setting environment variables for email and password...")
     email_pass_manager = SetEmailPass()
     BBY_EMAIL, BBY_PASS = email_pass_manager.check_and_set()
